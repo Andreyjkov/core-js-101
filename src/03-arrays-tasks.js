@@ -432,8 +432,14 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ] */
 
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country === b.country) {
+      if (a.city < b.city) return -1;
+    }
+    if (a.country < b.country) return -1;
+    return '';
+  });
 }
 
 /**
@@ -530,8 +536,18 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const res = new Map();
+  array.map((el) => {
+    const keys = keySelector(el);
+    if (res.has(keys)) {
+      res.get(keys).push(valueSelector(el));
+    } else {
+      res.set(keys, [valueSelector(el)]);
+    }
+    return res;
+  });
+  return res;
 }
 
 
